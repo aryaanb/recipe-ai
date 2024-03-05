@@ -1,31 +1,28 @@
 package server
 
 import (
-	"encoding/json"
-	"log"
 	"net/http"
+	"os"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+
+	"openai-go/internal/handler"
 )
 
 func (s *Server) RegisterRoutes() http.Handler {
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 
-	r.Get("/", s.HelloWorldHandler)
+	r.Route("/api/recipeAssistant", loadRecipeAssistantRoutes)
+	wd, _ := os.Getwd()
+	fs := http.FileServer(http.Dir(wd + "/frontend/build"))
+	r.Handle("/*", fs)
 
 	return r
 }
 
-func (s *Server) HelloWorldHandler(w http.ResponseWriter, r *http.Request) {
-	resp := make(map[string]string)
-	resp["message"] = "Hello World"
-
-	jsonResp, err := json.Marshal(resp)
-	if err != nil {
-		log.Fatalf("error handling JSON marshal. Err: %v", err)
-	}
-
-	_, _ = w.Write(jsonResp)
+func loadRecipeAssistantRoutes(router chi.Router) {
+	recipeHandler := &handler.RecipeAssistantHandler{}
+	router.Post("/", recipeHandler.MakeChatRequest)
 }
