@@ -10,6 +10,8 @@ const IngredientBar = () => {
   const [inputValue, setInputValue] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
   const [instructions, setInstructions] = useState<string[]>([]);
+  const [error, setError] = useState<string | null>(null); // State to handle error
+  const [sentRequest, setSentRequest] = useState(false)
   const navigate = useNavigate();
 
   // Function to handle input change
@@ -17,8 +19,15 @@ const IngredientBar = () => {
     setInputValue(e.target.value);
   };
 
+  const clearError = () => {
+    setTimeout(() => {
+      setError(null);
+    }, 5000);
+  }
+
   const postIngredients = async () => {
     setIsLoading(true);
+    setSentRequest(true);
     const url = '/api/recipeAssistant';
     const data = {
       ingredients: ingredients.join(', '),
@@ -42,16 +51,25 @@ const IngredientBar = () => {
       // Do something with responseData if needed
     } catch (error) {
       console.error('Error:', error);
-      // Handle errors here
+      setError('An error occurred. Please try again.'); // Set error message
+      clearError()
+      setIngredients([])
+      // Clear error message after 5 seconds
+    } finally {
+      setIsLoading(false)
     }
   };
 
   useEffect(() => {
     if (instructions.length > 0) {
-      setIsLoading(false);
       navigate('/recipe', { state: { instructions } });
+    } else if (instructions.length === 0 && sentRequest) {
+      setError('An error occurred. Please try again.')
+      clearError()
+      setSentRequest(false)
+      setIngredients([])
     }
-  }, [navigate, instructions]);
+  }, [navigate, instructions, sentRequest]);
 
   const handleClick = async () => {
     await postIngredients();
@@ -107,6 +125,12 @@ const IngredientBar = () => {
       >
         Submit Ingredients
       </button>
+      {/* Error Alert */}
+      {error && (
+        <div className="alert alert-error" role="alert">
+          {error}
+        </div>
+      )}
     </div>
   );
 };
