@@ -6,8 +6,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-
-	"openai-go/internal/handler"
+	"recipe-ai/internal/handler"
 )
 
 func (s *Server) RegisterRoutes() http.Handler {

@@ -1,4 +1,4 @@
-module openai-go
+module recipe-ai
 
 go 1.22.0
 

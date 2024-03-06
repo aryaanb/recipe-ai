@@ -9,9 +9,8 @@ import (
 	"os"
 
 	openai "github.com/sashabaranov/go-openai"
-
-	"openai-go/internal/constants"
-	"openai-go/internal/contracts"
+	"recipe-ai/internal/constants"
+	"recipe-ai/internal/contracts"
 )
 
 type RecipeAssistantHandler struct{}
