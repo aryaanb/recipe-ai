@@ -9,6 +9,7 @@ import (
 	"os"
 
 	openai "github.com/sashabaranov/go-openai"
+
 	"recipe-ai/internal/constants"
 	"recipe-ai/internal/contracts"
 )

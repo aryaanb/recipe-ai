@@ -4,9 +4,10 @@ import (
 	"net/http"
 	"os"
 
+	"recipe-ai/internal/handler"
+
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-	"recipe-ai/internal/handler"
 )
 
 func (s *Server) RegisterRoutes() http.Handler {

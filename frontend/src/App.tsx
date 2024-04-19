@@ -3,7 +3,7 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './pages/Layout';
 import Home from './pages/Home';
-import Recipe from './pages/Recipe';
+import RecipePage from './pages/Recipe';
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path='recipe' element={<Recipe />} />
+          <Route path='recipe' element={<RecipePage />} />
         </Route>
       </Routes>
     </BrowserRouter>

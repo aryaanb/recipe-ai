@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { StopIcon } from '@heroicons/react/24/outline';
 import { useNavigate } from 'react-router';
-import Spinner from './Spinner';
+import Spinner from '../Spinner';
+import { Recipe } from './types';
+import { postIngredients } from './util';
+import IngredientList from './IngredientList';
 
 const IngredientBar = () => {
   // State to store the list of ingredients
@@ -9,9 +12,14 @@ const IngredientBar = () => {
   // State to store the current input value
   const [inputValue, setInputValue] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
-  const [instructions, setInstructions] = useState<string[]>([]);
+  const [recipe, setRecipe] = useState<Recipe>({
+    ingredients: [],
+    instructions: [],
+    recipeName: '',
+  });
+
   const [error, setError] = useState<string | null>(null); // State to handle error
-  const [sentRequest, setSentRequest] = useState(false)
+  const [sentRequest, setSentRequest] = useState(false);
   const navigate = useNavigate();
 
   // Function to handle input change
@@ -23,56 +31,35 @@ const IngredientBar = () => {
     setTimeout(() => {
       setError(null);
     }, 5000);
-  }
+  };
 
-  const postIngredients = async () => {
+  const sendIngredients = async () => {
     setIsLoading(true);
     setSentRequest(true);
-    const url = '/api/recipeAssistant';
-    const data = {
-      ingredients: ingredients.join(', '),
-    };
-
     try {
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const responseData = await response.json();
-      setInstructions(responseData?.instructions);
-      // Do something with responseData if needed
+      let data = await postIngredients(ingredients);
+      setRecipe(data);
     } catch (error) {
-      console.error('Error:', error);
-      setError('An error occurred. Please try again.'); // Set error message
-      clearError()
-      setIngredients([])
-      // Clear error message after 5 seconds
+      setError('An error occurred. Please try again.');
+      clearError();
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    if (instructions.length > 0) {
-      navigate('/recipe', { state: { instructions } });
-    } else if (instructions.length === 0 && sentRequest) {
-      setError('An error occurred. Please try again.')
-      clearError()
-      setSentRequest(false)
-      setIngredients([])
+    if (recipe?.instructions.length > 0) {
+      navigate('/recipe', { state: { recipe } });
+    } else if (recipe?.instructions.length === 0 && sentRequest) {
+      setError('An error occurred. Please try again.');
+      clearError();
+      setSentRequest(false);
+      setRecipe({ ingredients: [], instructions: [], recipeName: '' });
     }
-  }, [navigate, instructions, sentRequest]);
+  }, [navigate, sentRequest, recipe]);
 
   const handleClick = async () => {
-    await postIngredients();
+    await sendIngredients();
   };
 
   const capitalizeFirstLetter = (str: string) => {
@@ -108,16 +95,10 @@ const IngredientBar = () => {
           onChange={handleInputChange}
         />
       </form>
-      <div className='shadow-xl container flex-1 overflow-y-auto'>
-        <ul>
-          {ingredients.map((ingredient, index) => (
-            <li key={index} className='prose prose-lg flex items-center m-1'>
-              <StopIcon className='h-6 w-6 text-teal-500 mr-2' />
-              {ingredient}
-            </li>
-          ))}
-        </ul>
-      </div>
+      <IngredientList
+        setIngredients={setIngredients}
+        ingredients={ingredients}
+      />
       <button
         onClick={handleClick}
         className='btn btn-success text-white m-3'
@@ -127,7 +108,7 @@ const IngredientBar = () => {
       </button>
       {/* Error Alert */}
       {error && (
-        <div className="alert alert-error" role="alert">
+        <div className='alert alert-error' role='alert'>
           {error}
         </div>
       )}

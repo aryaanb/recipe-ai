@@ -1,5 +1,5 @@
 import React from 'react';
-import IngredientBar from '../components/IngredientBar';
+import IngredientBar from '../components/IngredientBar/IngredientBar';
 
 const Home = () => {
   return (

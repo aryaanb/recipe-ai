@@ -7,4 +7,5 @@ type RecipeAssistantPostBody struct {
 type RecipeAssistantResponse struct {
 	Instructions []string `json:"instructions"`
 	Ingredients  []string `json:"ingredients"`
+	RecipeName   string   `json:"recipeName"`
 }
