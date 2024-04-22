@@ -12,7 +12,7 @@ const RecipePage = () => {
         <div className='flex flex-row justify-between items-center mb-4'>
           <h1 className='text-3xl font-bold mr-2'>{recipe?.recipeName}</h1>
           <button
-            className='btn btn-square bg-transparent border-none hover:bg-teal-50'
+            className='btn btn-square btn-ghost border-none hover:bg-teal-50'
             title='Save Recipe'
           >
             <svg

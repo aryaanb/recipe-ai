@@ -1,7 +1,12 @@
-export const postIngredients = async (ingredients: string[]) => {
+import { RecipePostBody } from './types';
+
+export const postIngredients = async (recipeBody: RecipePostBody) => {
+  console.log(recipeBody);
   const url = '/api/recipeAssistant';
+  let { ingredients, assistantProfile } = recipeBody;
   const data = {
     ingredients: ingredients.join(', '),
+    assistantProfile: assistantProfile,
   };
 
   try {
@@ -16,10 +21,8 @@ export const postIngredients = async (ingredients: string[]) => {
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
-
     const responseData = await response.json();
     return responseData;
-    // Do something with responseData if needed
   } catch (error) {
     throw error;
   }

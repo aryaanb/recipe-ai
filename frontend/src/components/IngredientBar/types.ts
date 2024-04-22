@@ -3,3 +3,8 @@ export type Recipe = {
   instructions: string[];
   recipeName: string;
 };
+
+export type RecipePostBody = {
+  ingredients: string[];
+  assistantProfile: string;
+};

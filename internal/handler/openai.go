@@ -10,20 +10,23 @@ import (
 
 	openai "github.com/sashabaranov/go-openai"
 
-	"recipe-ai/internal/constants"
 	"recipe-ai/internal/contracts"
+	"recipe-ai/internal/prompts"
 )
 
 type RecipeAssistantHandler struct{}
 
 func (h *RecipeAssistantHandler) MakeChatRequest(w http.ResponseWriter, r *http.Request) {
 	log.Println("[RecipeAssistantHandler]: Entered func")
-	var ingredients contracts.RecipeAssistantPostBody
-	err := json.NewDecoder(r.Body).Decode(&ingredients)
+	var recipeGuidelines contracts.RecipeAssistantPostBody
+	err := json.NewDecoder(r.Body).Decode(&recipeGuidelines)
 	if err != nil {
 		http.Error(w, "Error decoding JSON request body", http.StatusBadRequest)
 		return
 	}
+
+	assistantProfileKey := recipeGuidelines.AssistantProfile
+	assistantProfile := prompts.PromptMap[assistantProfileKey]
 
 	token := os.Getenv("OPENAI_SECRET_KEY")
 	client := openai.NewClient(token)
@@ -38,11 +41,11 @@ func (h *RecipeAssistantHandler) MakeChatRequest(w http.ResponseWriter, r *http.
 			Messages: []openai.ChatCompletionMessage{
 				{
 					Role:    openai.ChatMessageRoleSystem,
-					Content: constants.RecipeAssistantPrompt,
+					Content: assistantProfile,
 				},
 				{
 					Role:    openai.ChatMessageRoleUser,
-					Content: ingredients.Ingredients,
+					Content: recipeGuidelines.Ingredients,
 				},
 			},
 		},

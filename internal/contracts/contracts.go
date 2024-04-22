@@ -1,7 +1,8 @@
 package contracts
 
 type RecipeAssistantPostBody struct {
-	Ingredients string `json:"ingredients"`
+	Ingredients      string `json:"ingredients"`
+	AssistantProfile string `json:"assistantProfile"`
 }
 
 type RecipeAssistantResponse struct {
