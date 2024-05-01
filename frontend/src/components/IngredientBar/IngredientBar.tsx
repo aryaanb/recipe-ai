@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import Spinner from '../Spinner';
+import Spinner from '../Spinner/Spinner';
 import { Recipe, RecipePostBody } from './types';
 import { postIngredients } from './util';
 import IngredientList from './IngredientList';

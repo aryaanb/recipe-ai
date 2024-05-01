@@ -1,7 +1,6 @@
 import { RecipePostBody } from './types';
 
 export const postIngredients = async (recipeBody: RecipePostBody) => {
-  console.log(recipeBody);
   const url = '/api/recipeAssistant';
   let { ingredients, assistantProfile } = recipeBody;
   const data = {

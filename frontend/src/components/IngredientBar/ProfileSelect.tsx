@@ -15,7 +15,7 @@ const ProfileSelect = ({ setProfile }: Props) => {
   return (
     <select
       onChange={handleChange}
-      className='select select-bordered w-full max-w-xs mb-2'
+      className='select select-bordered w-full  mb-2'
       defaultValue={'default'}
     >
       <option disabled value='default'>

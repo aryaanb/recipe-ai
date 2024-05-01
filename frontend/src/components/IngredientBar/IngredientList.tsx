@@ -24,7 +24,7 @@ const IngredientList = ({ ingredients, setIngredients }: Props) => {
             </div>
             <button
               onClick={() => deleteItem(index)}
-              className='btn btn-sm btn-ghost btn-circle  outline-none text-red-500'
+              className='btn btn-sm btn-ghost btn-circle hover:bg-red-100  outline-none text-red-500'
             >
               <svg
                 xmlns='http://www.w3.org/2000/svg'

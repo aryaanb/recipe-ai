@@ -1,0 +1,16 @@
+export type UserInfo = {
+  email: string;
+  firstName: string;
+  lastName: string;
+};
+
+export type GoogleUser = {
+  sub: string;
+  name: string;
+  given_name: string;
+  family_name: string;
+  picture: string;
+  email: string;
+  email_verified: boolean;
+  locale: string;
+};
