@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import LoginButtons from '../LoginButtons/LoginButtons';
 
 const MenuDropdown = () => {
@@ -25,7 +26,7 @@ const MenuDropdown = () => {
         className='dropdown-content z-[1] menu  p-2 shadow bg-base-100 rounded-box w-52'
       >
         <li>
-          <a>Saved</a>
+          <Link to='/saved'>Saved</Link>
         </li>
         <li>
           <LoginButtons />

@@ -10,3 +10,9 @@ type RecipeAssistantResponse struct {
 	Ingredients  []string `json:"ingredients"`
 	RecipeName   string   `json:"recipeName"`
 }
+
+type User struct {
+	Email     string `json:"email"`
+	FirstName string `json:"firstName"`
+	LastName  string `json:"lastName"`
+}

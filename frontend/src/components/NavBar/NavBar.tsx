@@ -8,9 +8,7 @@ const NavBar = () => {
       <Link to='/' className='btn btn-ghost text-xl'>
         RecipeAI
       </Link>
-      <Link to='/' title='Saved Recipes'>
-        <MenuDropdown></MenuDropdown>
-      </Link>
+      <MenuDropdown></MenuDropdown>
     </div>
   );
 };

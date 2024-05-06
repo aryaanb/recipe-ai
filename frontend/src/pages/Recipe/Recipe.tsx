@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router';
-import { Recipe } from '../components/IngredientBar/types';
+import { Recipe } from '../../global/recipe.types';
 
 const RecipePage = () => {
   const location = useLocation();

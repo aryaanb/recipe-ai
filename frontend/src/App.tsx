@@ -3,8 +3,9 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './pages/Layout';
 import Home from './pages/Home';
-import RecipePage from './pages/Recipe';
+import RecipePage from './pages/Recipe/Recipe';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import SavedRecipes from './pages/SavedRecipes';
 
 const queryClient = new QueryClient();
 
@@ -16,6 +17,7 @@ function App() {
           <Route path='/' element={<Layout />}>
             <Route index element={<Home />} />
             <Route path='recipe' element={<RecipePage />} />
+            <Route path='saved' element={<SavedRecipes />} />
           </Route>
         </Routes>
       </BrowserRouter>
