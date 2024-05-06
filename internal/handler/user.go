@@ -36,5 +36,10 @@ func (u *UserHandler) InsertUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func insertUser(db *sql.DB, user contracts.User) error {
+	query := "INSERT INTO users (email) VALUES (?)"
+	_, err := db.Exec(query, user.Email)
+	if err != nil {
+		return err
+	}
 	return nil
 }
