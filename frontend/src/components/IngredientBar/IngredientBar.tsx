@@ -6,6 +6,7 @@ import { postIngredients } from './util';
 import IngredientList from './IngredientList';
 import ProfileSelect from './ProfileSelect';
 import { useMutation } from '@tanstack/react-query';
+import ErrorAlert from '../Alerts/ErrorAlert';
 
 const IngredientBar = () => {
   // State to store the list of ingredients
@@ -13,7 +14,7 @@ const IngredientBar = () => {
   // State to store the current input value
   const [inputValue, setInputValue] = useState<string>('');
 
-  const [error, setError] = useState<string | null>(null); // State to handle error
+  const [error, setError] = useState<string>(''); // State to handle error
   const [profile, setProfile] = useState<string>(''); // State to handle error
   const navigate = useNavigate();
 
@@ -27,7 +28,7 @@ const IngredientBar = () => {
 
   const clearError = () => {
     setTimeout(() => {
-      setError(null);
+      setError('');
     }, 5000);
   };
 
@@ -40,17 +41,20 @@ const IngredientBar = () => {
   };
 
   useEffect(() => {
-    if (mutation.isError) {
-      setError('An error occurred. Please try again.');
+    const triggerError = (message: string) => {
+      setError(message);
       clearError();
+    };
+
+    if (mutation.isError) {
+      triggerError('An error occurred. Please try again.');
     }
     if (mutation.isSuccess) {
       const recipe: Recipe = mutation.data;
       if (recipe?.ingredients.length > 0) {
         navigate('/recipe', { state: { recipe } });
       } else if (recipe?.instructions.length === 0) {
-        setError('An error occurred. Please try again.');
-        clearError();
+        triggerError('An error occurred. Please try again.');
       }
     }
   }, [mutation.data, mutation.isError, mutation.isSuccess, navigate]);
@@ -104,11 +108,7 @@ const IngredientBar = () => {
         Get Recipe
       </button>
       {/* Error Alert */}
-      {error && (
-        <div className='alert alert-error' role='alert'>
-          {error}
-        </div>
-      )}
+      {error !== '' && <ErrorAlert error={error} />}
     </div>
   );
 };

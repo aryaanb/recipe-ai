@@ -20,24 +20,37 @@ func (u *UserHandler) InsertUser(w http.ResponseWriter, r *http.Request) {
 	}
 	db, err := database.New()
 	if err != nil {
-		http.Error(w, "Error connecting to database", http.StatusInternalServerError)
+		http.Error(w, "Error connecting to database: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
 	err = insertUser(db.Conn, body)
 	if err != nil {
-		http.Error(w, "Failed to insert user into database", http.StatusInternalServerError)
+		http.Error(
+			w,
+			"Failed to insert user into database: "+err.Error(),
+			http.StatusInternalServerError,
+		)
 	}
 	w.WriteHeader(http.StatusCreated)
 	err = json.NewEncoder(w).Encode(body)
 	if err != nil {
-		http.Error(w, "Error encoding JSON", http.StatusInternalServerError)
+		http.Error(w, "Error encoding JSON"+err.Error(), http.StatusInternalServerError)
 		return
 	}
 }
 
 func insertUser(db *sql.DB, user contracts.User) error {
+	var emailExists bool
+	err := db.QueryRow("SELECT EXISTS(SELECT 1 FROM users WHERE email = ?)", user.Email).
+		Scan(&emailExists)
+	if err != nil {
+		return err
+	}
+	if emailExists {
+		return nil
+	}
 	query := "INSERT INTO users (email) VALUES (?)"
-	_, err := db.Exec(query, user.Email)
+	_, err = db.Exec(query, user.Email)
 	if err != nil {
 		return err
 	}
