@@ -7,7 +7,20 @@ const SavedRecipes = () => {
     {
       recipeName: 'Chicken Curry',
       instructions: ['1. Cook', '2. Chicken'],
-      ingredients: ['chicken'],
+      ingredients: [
+        'chicken',
+        'chicken',
+        'chicken',
+        'chicken',
+        'chicken',
+        'chicken',
+        'chicken',
+        'chicken',
+        'chicken',
+        'chicken',
+        'chicken',
+        'chicken',
+      ],
     },
     {
       recipeName: 'Potato Curry',
@@ -46,7 +59,7 @@ const SavedRecipes = () => {
       <h1 className='text-3xl font-bold mr-2'>Saved Recipes</h1>
       {recipes.map((recipe, i) => (
         <div className='m-2'>
-          <RecipeCard></RecipeCard>
+          <RecipeCard recipe={recipe}></RecipeCard>
         </div>
       ))}
     </div>

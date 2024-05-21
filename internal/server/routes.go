@@ -16,6 +16,7 @@ func (s *Server) RegisterRoutes() http.Handler {
 
 	r.Route("/api/recipeAssistant", loadRecipeAssistantRoutes)
 	r.Route("/api/user", loadUserRoutes)
+	r.Route("/api/savedRecipes", loadSavedRecipeRoutes)
 
 	// serve static files
 	wd, _ := os.Getwd()
@@ -32,4 +33,10 @@ func loadRecipeAssistantRoutes(router chi.Router) {
 func loadUserRoutes(router chi.Router) {
 	userHandler := &handler.UserHandler{}
 	router.Post("/", userHandler.InsertUser)
+}
+
+func loadSavedRecipeRoutes(router chi.Router) {
+	recipeHandler := &handler.SavedRecipesHandler{}
+	router.Post("/", recipeHandler.InsertRecipe)
+	router.Get("/", recipeHandler.GetAllUserRecipes)
 }

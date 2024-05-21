@@ -16,3 +16,10 @@ type User struct {
 	FirstName string `json:"firstName"`
 	LastName  string `json:"lastName"`
 }
+
+type SavedRecipe struct {
+	Instructions []string `json:"instructions"`
+	Ingredients  []string `json:"ingredients"`
+	RecipeName   string   `json:"recipeName"`
+	UserEmail    string   `json:"userEmail"`
+}

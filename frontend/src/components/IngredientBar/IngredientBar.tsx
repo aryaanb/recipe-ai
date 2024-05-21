@@ -15,7 +15,9 @@ const IngredientBar = () => {
   const [inputValue, setInputValue] = useState<string>('');
 
   const [error, setError] = useState<string>(''); // State to handle error
-  const [profile, setProfile] = useState<string>(''); // State to handle error
+  const [profile, setProfile] = useState<string>(
+    'Select a recipe assistant...',
+  ); // State to handle error
   const navigate = useNavigate();
 
   const mutation = useMutation({
@@ -102,7 +104,7 @@ const IngredientBar = () => {
         onClick={handleClick}
         className='btn btn-success text-white m-3'
         disabled={
-          ingredients.length === 0 && profile !== 'Select a recipe assistant...'
+          ingredients.length === 0 || profile === 'Select a recipe assistant...'
         }
       >
         Get Recipe

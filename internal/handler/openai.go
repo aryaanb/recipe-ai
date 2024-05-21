@@ -63,5 +63,13 @@ func (h *RecipeAssistantHandler) MakeChatRequest(w http.ResponseWriter, r *http.
 		http.Error(w, "Error reading assistant generated json", http.StatusInternalServerError)
 		return
 	}
+	if !isValidResponse(response) {
+		http.Error(w, "Failed to generate a valid recipe", http.StatusInternalServerError)
+		return
+	}
 	json.NewEncoder(w).Encode(response)
+}
+
+func isValidResponse(res contracts.RecipeAssistantResponse) bool {
+	return len(res.Ingredients) > 0 && len(res.Instructions) > 0 && len(res.RecipeName) > 0
 }
