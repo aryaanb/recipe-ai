@@ -3,3 +3,10 @@ export type Recipe = {
   instructions: string[];
   recipeName: string;
 };
+
+export type SavedRecipe = {
+  ingredients: string[];
+  instructions: string[];
+  recipeName: string;
+  userEmail: string;
+};

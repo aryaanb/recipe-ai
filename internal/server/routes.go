@@ -39,4 +39,5 @@ func loadSavedRecipeRoutes(router chi.Router) {
 	recipeHandler := &handler.SavedRecipesHandler{}
 	router.Post("/", recipeHandler.InsertRecipe)
 	router.Get("/", recipeHandler.GetAllUserRecipes)
+	router.Delete("/{recipeId}", recipeHandler.DeleteRecipe)
 }

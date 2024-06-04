@@ -22,4 +22,5 @@ type SavedRecipe struct {
 	Ingredients  []string `json:"ingredients"`
 	RecipeName   string   `json:"recipeName"`
 	UserEmail    string   `json:"userEmail"`
+	RecipeId     int      `json:"recipeId"`
 }
