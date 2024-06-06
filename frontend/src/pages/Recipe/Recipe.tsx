@@ -22,13 +22,15 @@ const RecipePage = () => {
   });
 
   const handleClick = () => {
-    const body = {
-      ingredients: recipe.ingredients,
-      instructions: recipe.instructions,
-      recipeName: recipe.recipeName,
-      userEmail: user?.email ?? '',
-    };
-    mutation.mutate(body);
+    if (!fillButton) {
+      const body = {
+        ingredients: recipe.ingredients,
+        instructions: recipe.instructions,
+        recipeName: recipe.recipeName,
+        userEmail: user?.email ?? '',
+      };
+      mutation.mutate(body);
+    }
   };
 
   useEffect(() => {
