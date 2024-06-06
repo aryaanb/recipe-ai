@@ -33,13 +33,11 @@ const RecipeCard = ({ recipe, recipes, setRecipes }: Props) => {
           >
             <h2>{recipe.recipeName}</h2>
           </Link>
-          <button className='btn btn-ghost btn-sm text-yellow-600'>
-            <BookmarkButton
-              handleClick={() => unsaveRecipe(recipe.recipeId || -1)}
-              solid={true}
-              disable={false}
-            />
-          </button>
+          <BookmarkButton
+            handleClick={() => unsaveRecipe(recipe.recipeId || -1)}
+            solid={true}
+            disable={false}
+          />
         </div>
         <p>{recipe.ingredients.join(', ')}</p>
       </div>
