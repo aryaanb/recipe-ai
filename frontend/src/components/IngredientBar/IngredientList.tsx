@@ -1,5 +1,5 @@
 import React, { SetStateAction } from 'react';
-import { StopIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { StopIcon } from '@heroicons/react/24/outline';
 
 type Props = {
   ingredients: string[];
@@ -16,9 +16,9 @@ const IngredientList = ({ ingredients, setIngredients }: Props) => {
         {ingredients.map((ingredient, index) => (
           <li
             key={index}
-            className='prose prose-lg flex flex-row items-center m-1 justify-between'
+            className='flex flex-row items-center m-1 justify-between'
           >
-            <div className='flex flex-row items-center'>
+            <div className='flex flex-row items-center '>
               <StopIcon className='h-6 w-6 text-teal-500 mr-2 ' />
               {ingredient}
             </div>
@@ -40,9 +40,9 @@ const IngredientList = ({ ingredients, setIngredients }: Props) => {
                   d='M6 18L18 6M6 6l12 12'
                 />
               </svg>
-            </button>
+            </button > 
           </li>
-        ))}
+        ))} 
       </ul>
     </div>
   );
