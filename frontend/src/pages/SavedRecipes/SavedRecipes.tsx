@@ -5,6 +5,8 @@ import { Recipe } from '../../global/recipe.types';
 import { getRecipes } from './util';
 import { UserContextType } from '../../global/context.types';
 import { UserContext } from '../../context/UserContext';
+import LoginMessage from './LoginMessage';
+import Spinner from '../../components/Spinner/Spinner';
 
 const SavedRecipes = () => {
   const { user, loggedIn } = useContext(UserContext) as UserContextType;
@@ -24,8 +26,16 @@ const SavedRecipes = () => {
     }
   }, [data, isSuccess]);
 
+  if (!loggedIn) {
+    return <LoginMessage />;
+  }
+
   if (isPending) {
-    return <div>Loading</div>;
+    return (
+      <div className='flex items-center justify-center h-screen'>
+        <Spinner />
+      </div>
+    );
   }
 
   if (isError) {

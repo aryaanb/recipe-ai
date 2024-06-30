@@ -18,8 +18,8 @@ function App() {
           <Route path='/' element={<Layout />}>
             <Route index element={<Home />} />
             <Route path='recipe' element={<RecipePage />} />
+            <Route path='saved' element={<SavedRecipes />} />
             <Route element={<RequireAuth />}>
-              <Route path='saved' element={<SavedRecipes />} />
             </Route>
           </Route>
         </Routes>

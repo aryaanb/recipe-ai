@@ -102,7 +102,7 @@ const IngredientBar = () => {
       />
       <button
         onClick={handleClick}
-        className='btn btn-success text-white m-3'
+        className='btn bg-teal-500 text-white m-3'
         disabled={
           ingredients.length === 0 || profile === 'Select a recipe assistant...'
         }

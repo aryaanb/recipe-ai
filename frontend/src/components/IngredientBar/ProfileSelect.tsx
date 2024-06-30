@@ -8,6 +8,11 @@ const ProfileSelect = ({ setProfile }: Props) => {
   let profileOptions = [
     { label: 'Indian', value: 'indian' },
     { label: 'Italian', value: 'italian' },
+    { label: 'Thai', value: 'thai' },
+    { label: 'Greek', value: 'greek' },
+    { label: 'Mexican', value: 'mexican' },
+    { label: 'French', value: 'french' },
+    { label: 'Japanese', value: 'japanese' },
   ];
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setProfile(e.target.value);
