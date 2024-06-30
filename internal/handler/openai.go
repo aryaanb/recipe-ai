@@ -25,8 +25,7 @@ func (h *RecipeAssistantHandler) MakeChatRequest(w http.ResponseWriter, r *http.
 		return
 	}
 
-	assistantProfileKey := recipeGuidelines.AssistantProfile
-	assistantProfile := prompts.PromptMap[assistantProfileKey]
+	assistantProfile := prompts.GeneratePrompt(recipeGuidelines.AssistantProfile)
 
 	token := os.Getenv("OPENAI_SECRET_KEY")
 	client := openai.NewClient(token)
